@@ -55,12 +55,17 @@ input("Press Enter to continue...")
 # TODO: Create a function to add the columns(features) of a list in another list in the same order
 def column_to_list(data, index):
     """
-    Get a specift column especified by index and return a list with the values
+    Get a specific column especified by index and return a list with the values
+    Args
+        data: the list where the column will be extracted
+        index: the data column index
+    Return
+        a lista containing the column values
     """
     column_list = []
     # Tip: You can use a for to iterate over the samples, get the feature by index and append into a list
-    for data in data_list:
-        column_list.append(data[index])
+    for d in data:
+        column_list.append(d[index])
     return column_list
 
 
@@ -98,6 +103,10 @@ input("Press Enter to continue...")
 def count_gender(data_list):
     """
     Count how many Male and Females there is in the dataset
+    Args
+        data_list: the dataset
+    Return
+        A list with two values, first the total os males, then de total os females
     """
     male = len([m for m in column_to_list(data_list, -2) if m == "Male"])
     female = len([m for m in column_to_list(data_list, -2) if m == "Female"])
@@ -121,6 +130,10 @@ input("Press Enter to continue...")
 def most_popular_gender(data_list):
     """
     Check if there is more Males or Females
+    Args
+        data_list: the dataset
+    Return
+        A string Male, Female ou Equal
     """
     answer = "Equal"
     genders = count_gender(data_list)
@@ -157,6 +170,10 @@ input("Press Enter to continue...")
 def count_usertype(data_list):
     """
     Count how many Subscribers and Customes there is in the dataset
+    Args
+        data_list: the datase
+    Return
+        A list with two possition. The first is the total of subscribers, then the total os customers
     """
     subscriber = len([t for t in column_to_list(data_list, -3) if t == "Subscriber"])
     customer = len([t for t in column_to_list(data_list, -3) if t == "Customer"])
@@ -198,7 +215,11 @@ trip_duration_sorted_list = sorted([int(x) for x in trip_duration_list])
 min_trip = trip_duration_sorted_list[0]
 max_trip = trip_duration_sorted_list[-1]
 mean_trip = reduce(lambda x, y: int(x)+int(y), trip_duration_sorted_list) / len(trip_duration_sorted_list)
-median_trip = trip_duration_sorted_list[len(trip_duration_sorted_list) // 2]
+if len(trip_duration_sorted_list) % 2 == 0: # even lenght
+    median_trip = (trip_duration_sorted_list[(len(trip_duration_sorted_list)-1) // 2] + 
+        trip_duration_sorted_list[len(trip_duration_sorted_list) // 2]) / 2
+else: # odd lenght
+    median_trip = trip_duration_sorted_list[len(trip_duration_sorted_list) // 2]
 
 print("\nTASK 9: Printing the min, max, mean and median")
 print("Min: ", min_trip, "Max: ", max_trip, "Mean: ", mean_trip, "Median: ", median_trip)
